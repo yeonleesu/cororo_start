@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 1px solid #000;
+    }
+
+    .mouseImage {
+      position: absolute;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+  </div>
+
+  <script>
+    var container = document.getElementById('container');
+    var mouseImage = null; // 마우스를 따라다니는 이미지
+
+    container.addEventListener('mousemove', function(event) {
+      var x = event.clientX - container.offsetLeft; // 마우스의 x 위치 계산
+      var y = event.clientY - container.offsetTop; // 마우스의 y 위치 계산
+
+      // 마우스 이미지가 존재하면 위치 업데이트
+      if (mouseImage) {
+        mouseImage.style.left = x + 'px';
+        mouseImage.style.top = y + 'px';
+      }
+    });
+
+    container.addEventListener('click', function(event) {
+      var newImage = document.createElement('img');
+      var randomNumber = Math.floor(Math.random() * 16) + 1; // 랜덤한 이미지를 선택하기 위한 변수
+
+      // 마우스를 따라다니는 이미지 업데이트
+      if (mouseImage) {
+        mouseImage.src = 'piece/' + randomNumber + '.png';
+      } else {
+        mouseImage = document.createElement('img');
+        mouseImage.src = 'piece/' + randomNumber + '.png';
+        mouseImage.width = 100;
+        mouseImage.height = 100;
+        mouseImage.style.position = 'absolute';
+        container.appendChild(mouseImage);
+      }
+
+      // 클릭할 때마다 이미지 추가
+      newImage.src = mouseImage.src;
+      newImage.width = 100;
+      newImage.height = 100;
+      newImage.style.position = 'absolute';
+      newImage.style.left = event.clientX - container.offsetLeft + 'px';
+      newImage.style.top = event.clientY - container.offsetTop + 'px';
+      container.appendChild(newImage);
+
+      // 마우스를 따라다니는 이미지를 가장 앞으로 옮김
+      container.removeChild(mouseImage);
+      container.appendChild(mouseImage);
+    });
+  </script>
+</body>
+</html>

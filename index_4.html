@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 1px solid #000;
+    }
+
+    .mouseImage {
+      position: absolute;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+  </div>
+
+  <script>
+    var container = document.getElementById('container');
+    var mouseImage = document.createElement('img');
+    mouseImage.style.position = 'absolute';
+    mouseImage.width = 100;
+    mouseImage.height = 100;
+    container.appendChild(mouseImage);
+
+    function updateMouseImage() {
+      var randomNumber = Math.floor(Math.random() * 16) + 1; // 랜덤 이미지를 선택
+      mouseImage.src = 'piece/' + randomNumber + '.png'; // 이미지 업데이트
+    }
+
+    updateMouseImage(); // 처음 이미지를 설정
+
+    container.addEventListener('mousemove', function(event) {
+      var x = event.clientX - container.offsetLeft; // 마우스의 x 위치 계산
+      var y = event.clientY - container.offsetTop; // 마우스의 y 위치 계산
+
+      mouseImage.style.left = x + 'px';
+      mouseImage.style.top = y + 'px';
+    });
+
+    container.addEventListener('click', function(event) {
+      var newImage = document.createElement('img');
+      
+      // 클릭할 때마다 이미지 추가
+      newImage.src = mouseImage.src;
+      newImage.width = 100;
+      newImage.height = 100;
+      newImage.style.position = 'absolute';
+      newImage.style.left = event.clientX - container.offsetLeft + 'px';
+      newImage.style.top = event.clientY - container.offsetTop + 'px';
+      container.appendChild(newImage);
+
+      // 클릭 후 새로운 랜덤 이미지를 마우스 따라다니는 이미지로 설정
+      updateMouseImage();
+    });
+  </script>
+</body>
+</html>
