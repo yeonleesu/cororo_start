@@ -1,15 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웹사이트</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    .background {
+        position: relative;
+        width: 100%;
+    }
+    .background img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+    }
+    .ball {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        max-width: 100%;
+    }
+    .ball:nth-child(2),
+    .ball:nth-child(3),
+    .ball:nth-child(4),
+    .ball:nth-child(5),
+    .ball:nth-child(6),
+    .ball:nth-child(7),
+    .ball:nth-child(8),
+    .ball:nth-child(9),
+    .ball:nth-child(10),
+    .ball:nth-child(11) {
+        position: fixed;
+    }
+    .blue-line {
+        position: fixed;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+    .next {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        z-index: 5;
+        display: none; /* 초기에 숨김 처리 */
+    }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 10%;
+        height: 100%;
+        background-color: black;
+        z-index: 4;
+        display: none; /* 초기에 숨김 처리 */
+    }
+</style>
+</head>
+<body>
+<div class="background">
+    <img src="source/bg_1.png" alt="Background 1">
+    <img src="source/bg_2.png" alt="Background 2">
+    <img src="source/bg_3.png" alt="Background 3">
+</div>
+<img class="ball" src="source/ball.png" alt="Ball">
+<img class="ball" src="source/ball_1.png" alt="Ball 1">
+<img class="ball" src="source/ball_2.png" alt="Ball 2">
+<img class="ball" src="source/ball_3.png" alt="Ball 3">
+<img class="ball" src="source/ball_4.png" alt="Ball 4">
+<img class="ball" src="source/ball_5.png" alt="Ball 5">
+<img class="ball" src="source/ball_6.png" alt="Ball 6">
+<img class="ball" src="source/ball_white_1.png" alt="Ball White 1">
+<img class="ball" src="source/ball_white_2.png" alt="Ball White 2">
+<img class="ball" src="source/ball_white_3.png" alt="Ball White 3">
+<img class="ball" src="source/ball_white_4.png" alt="Ball White 4">
+<img class="ball" src="source/ball_white_5.png" alt="Ball White 5">
+<img class="ball" src="source/ball_white_6.png" alt="Ball White 6">
+<img class="blue-line" src="source/blue_line.png" alt="Blue Line">
+<img class="next" src="source/next.png" alt="Next">
+<div class="sidebar"></div>
+<script>
+    var whiteBalls = document.querySelectorAll('.ball[src*="ball_white"]');
+    var clickCount = 0;
 
-  </head>
-  <body>
-    <main>
-    </main>
-    <script src="sketch.js"></script>
-  </body>
+    document.body.addEventListener('click', function() {
+        clickCount++;
+        if (clickCount >= 6) {
+            document.querySelector('.next').style.display = 'block';
+            document.querySelector('.sidebar').style.display = 'block';
+        }
+        if (clickCount === 7) {
+            window.location.href = '다음페이지URL';
+        }
+        if (clickCount <= whiteBalls.length) {
+            whiteBalls[clickCount - 1].style.display = 'none';
+        }
+    });
+</script>
+</body>
 </html>
