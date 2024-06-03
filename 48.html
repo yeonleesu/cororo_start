@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Page</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        video {
+            height: 80%;
+        }
+    </style>
+    <script>
+        setTimeout(function() {
+            window.location.href = 'index.html';
+        }, 15000);
+
+        function handleBodyClick(event) {
+            if (!document.querySelector('video').contains(event.target)) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.body.addEventListener('click', handleBodyClick);
+        });
+    </script>
+</head>
+<body>
+    <video controls>
+        <source src="48.mp4" type="video/mp4">
+    </video>
+</body>
+</html>
