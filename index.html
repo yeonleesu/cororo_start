@@ -1,15 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
-
-  </head>
-  <body>
-    <main>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leeyoonjae's homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 1em 0;
+            transition: top 0.3s;
+            z-index: 1000;
+        }
+        .hidden {
+            top: -100px;
+        }
+        main {
+            margin-top: 60px;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-container {
+            margin: 1em 0;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .image-container img {
+            width: auto;
+            max-width: 500px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1>leeyoonjae</h1>
+    </header>
+    <main id="main">
+        <!-- 처음 로딩되는 3개의 이미지 -->
     </main>
-    <script src="sketch.js"></script>
-  </body>
+    <script>
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+        const main = document.getElementById('main');
+        const images = ['image_01.png', 'image_02.png', 'image_03.png', 'image_04.png', 'image_05.png', 'image_06.png', 'image_07.png'];
+        let imageIndex = 0;
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                loadMoreImages();
+            }
+        });
+
+        function loadMoreImages() {
+            const img = document.createElement('img');
+            img.src = images[imageIndex];
+            const container = document.createElement('div');
+            container.className = 'image-container';
+            container.appendChild(img);
+            main.appendChild(container);
+            imageIndex = (imageIndex + 1) % images.length;
+        }
+
+        // 초기 3개의 이미지를 로드
+        for (let i = 0; i < 3; i++) {
+            loadMoreImages();
+        }
+    </script>
+</body>
 </html>
